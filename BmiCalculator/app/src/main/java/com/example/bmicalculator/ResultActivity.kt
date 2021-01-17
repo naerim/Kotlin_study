@@ -19,6 +19,7 @@ class ResultActivity : AppCompatActivity() {
         imageView = findViewById<ImageView>(R.id.imageView)
         var height = intent.getStringExtra("height").toInt()
         var weight = intent.getStringExtra("weight").toInt()
+        var name = intent.getStringExtra("name")
 
         // BMI 계산
         var bmi = weight / (height / 100.0).pow(2.0)
@@ -49,6 +50,6 @@ class ResultActivity : AppCompatActivity() {
                 )
         }
 
-        Toast.makeText(this, "$bmi", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "$name" +" : "+"$bmi", Toast.LENGTH_SHORT).show()
     }
 }
