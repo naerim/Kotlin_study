@@ -8,6 +8,7 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 
 class MainActivity : AppCompatActivity(), SensorEventListener {
@@ -46,6 +47,9 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
 
     // 센서값 읽어오기
     override fun onSensorChanged(event: SensorEvent?) {
-        TODO("Not yet implemented")
+        event?.let{
+            Log.d("MainActivity", "onSensorChanged : x:" + "${event.values[0]}," +
+                       " y : ${event.values[1]}, z : ${event.values[2]}")
+        }
     }
 }
