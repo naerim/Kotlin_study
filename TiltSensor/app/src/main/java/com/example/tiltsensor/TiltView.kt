@@ -32,6 +32,15 @@ class TiltView(context: Context) : View(context) {
 
         canvas?.drawLine(cX-20,cY,cX+20,cY,blackPaint)
         canvas?.drawLine(cX,cY-20,cX,cY+20,blackPaint)
+
+        canvas?.drawCircle(cX,50f,50f,blackPaint)
+        canvas?.drawCircle(xCoord+cX,50f,50f,greenPaint)
+
+        canvas?.drawCircle(50f,cY,50f,blackPaint)
+        canvas?.drawCircle(50f,yCoord+cY,50f,greenPaint)
+
+        blackPaint.textSize = 50f
+        canvas?.drawText("X: ${xCoord/20}, Y: ${yCoord/20}", cX+150f, cY+300f, blackPaint)
     }
 
     fun onSensorEvent(event: SensorEvent){
