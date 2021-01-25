@@ -33,4 +33,9 @@
         android:icon="@drawable/ic_baseline_home_24"
         android:title="Home"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_reload"
+        android:icon="@drawable/ic_baseline_refresh_24"
+        android:title="action_reload"
+        app:showAsAction="ifRoom" />
 </menu>

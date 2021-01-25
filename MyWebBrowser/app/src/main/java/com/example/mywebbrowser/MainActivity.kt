@@ -11,11 +11,14 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Button
 import android.widget.EditText
 
 class MainActivity : AppCompatActivity() {
     lateinit var webView : WebView
     lateinit var urlEditText: EditText
+    lateinit var backButton: Button
+    lateinit var forwardButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +26,8 @@ class MainActivity : AppCompatActivity() {
 
         webView = findViewById(R.id.webView)
         urlEditText = findViewById(R.id.urlEditText)
+        backButton = findViewById(R.id.backButton)
+        forwardButton = findViewById(R.id.forwardButton)
 
         webView.apply {
             settings.javaScriptEnabled = true
@@ -42,6 +47,18 @@ class MainActivity : AppCompatActivity() {
             }
             else{
                 false
+            }
+        }
+
+        // 뒤로가기
+        backButton.setOnClickListener {
+            onBackPressed()
+        }
+
+        // 앞으로가기
+        forwardButton.setOnClickListener {
+            if(webView.canGoForward()){
+                webView.goForward()
             }
         }
     }
@@ -65,6 +82,10 @@ class MainActivity : AppCompatActivity() {
         when(item?.itemId){
             R.id.action_google, R.id.action_home -> {
                 webView.loadUrl("http://www.google.com")
+                return true
+            }
+            R.id.action_reload -> {
+                webView.reload()
                 return true
             }
             R.id.action_naver -> {
