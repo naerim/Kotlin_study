@@ -17,14 +17,17 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         getSystemService(Context.SENSOR_SERVICE) as SensorManager
     }
 
+    private lateinit var tiltView: TiltView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         // 화면이 꺼지지 않게 하기
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         // 화면이 가로 모드로 고정되게 하기
         requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        tiltView = TiltView(this)
+        setContentView(tiltView)
     }
 
     // 센서 등록
@@ -50,6 +53,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         event?.let{
             Log.d("MainActivity", "onSensorChanged : x:" + "${event.values[0]}," +
                        " y : ${event.values[1]}, z : ${event.values[2]}")
+            tiltView.onSensorEvent(event)
         }
     }
 }
