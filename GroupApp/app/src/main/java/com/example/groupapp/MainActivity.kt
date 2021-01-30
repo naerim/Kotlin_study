@@ -1,6 +1,7 @@
 package com.example.groupapp
 
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import androidx.appcompat.app.AppCompatActivity
@@ -49,6 +50,27 @@ class MainActivity : AppCompatActivity() {
                     +edtNumber.text.toString() + ");")
             sqlDB.close()
             Toast.makeText(applicationContext, "입력됨", Toast.LENGTH_SHORT).show()
+        }
+
+        btnSelect.setOnClickListener {
+            sqlDB = myHelper.readableDatabase
+
+            var cursor: Cursor
+            cursor = sqlDB.rawQuery("SELECT * FROM groupTBL;", null)
+
+            var strNames = "그룹이름" +"\r\n" +"---------"+"\r\n"
+            var strNumbers = "인원" +"\r\n" +"---------"+"\r\n"
+
+            while (cursor.moveToNext()){
+                strNames += cursor.getString(0)+"\r\n"
+                strNumbers += cursor.getString(1)+"\r\n"
+            }
+
+            edtNameResult.setText(strNames)
+            edtNumberResult.setText(strNumbers)
+
+            cursor.close()
+            sqlDB.close()
         }
     }
 
