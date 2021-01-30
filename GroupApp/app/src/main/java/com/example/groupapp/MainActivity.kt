@@ -16,9 +16,12 @@ class MainActivity : AppCompatActivity() {
     lateinit var edtNumber : EditText
     lateinit var edtNameResult : EditText
     lateinit var edtNumberResult : EditText
+
     lateinit var btnInit : Button
     lateinit var btnInsert : Button
     lateinit var btnSelect : Button
+    lateinit var btnUpdate : Button
+    lateinit var btnDelete : Button
 
     lateinit var myHelper : myDBHelper
     lateinit var sqlDB : SQLiteDatabase
@@ -34,6 +37,8 @@ class MainActivity : AppCompatActivity() {
         btnInit = findViewById(R.id.btnInit)
         btnInsert = findViewById(R.id.btnInsert)
         btnSelect = findViewById(R.id.btnSelect)
+        btnUpdate = findViewById(R.id.btnUpdate)
+        btnDelete = findViewById(R.id.btnDelete)
 
         myHelper = myDBHelper(this)
 
@@ -50,6 +55,7 @@ class MainActivity : AppCompatActivity() {
                     +edtNumber.text.toString() + ");")
             sqlDB.close()
             Toast.makeText(applicationContext, "입력됨", Toast.LENGTH_SHORT).show()
+            btnSelect.callOnClick()
         }
 
         btnSelect.setOnClickListener {
@@ -71,6 +77,29 @@ class MainActivity : AppCompatActivity() {
 
             cursor.close()
             sqlDB.close()
+        }
+
+        btnUpdate.setOnClickListener {
+            sqlDB = myHelper.writableDatabase
+
+            sqlDB.execSQL("UPDATE groupTBL SET gNumber = "+edtNumber.text+" WHERE gName = '"
+            + edtName.text.toString() +"';")
+
+            sqlDB.close()
+
+            Toast.makeText(applicationContext, "수정됨", Toast.LENGTH_SHORT).show()
+            btnSelect.callOnClick()
+        }
+
+        btnDelete.setOnClickListener {
+            sqlDB = myHelper.writableDatabase
+
+            sqlDB.execSQL("DELETE FROM groupTBL WHERE gName = '" +edtName.text.toString()+"';")
+
+            sqlDB.close()
+
+            Toast.makeText(applicationContext, "삭제됨", Toast.LENGTH_SHORT).show()
+            btnSelect.callOnClick()
         }
     }
 
